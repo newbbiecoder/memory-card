@@ -5,13 +5,12 @@ export default function App() {
   const [dataIsLoaded, setDataIsLoaded] = useState(false);
 
   useEffect(() => {
-    async function getPokemons() {
+    async function getCharacters() {
       const requests = [];
 
       for(let i = 0; i < 10; i++) {
-        const randomNumber = Math.floor(Math.random() * 1025) + 1;
         requests.push(
-          fetch(`https://pokeapi.co/api/v2/pokemon/${randomNumber}`).then((res) => res.json())
+          fetch(`https://api.nekosia.cat/api/v1/images/cute`).then((res) => res.json())
         );
       }
 
@@ -19,7 +18,7 @@ export default function App() {
       setItems(results);
       setDataIsLoaded(true);
     }
-    getPokemons();
+    getCharacters();
   },[]);
   if(!dataIsLoaded) {
     return (
@@ -28,34 +27,36 @@ export default function App() {
       </div>
     )
   }
+  else if(dataIsLoaded) console.log(items)
 
   return (
     <>
-      <h1 style={{color: 'white'}}>HELLo</h1>
-      <div>
-        <ShowPokemon items={items} /> 
-      </div>
+      <h1 style={{color: 'white'}}>Memory Game</h1>
+      <ShowCharacters items={items} />
     </>
   )
 }
 
-function ShowPokemon({items}) {
-  const pokemon = []
+function ShowCharacters({items}) {
+  const characters = []
   return (
     <>  
       <div className="container">
         {
           items.map((item) => {
-            pokemon.push({name: item.species.name, url: item.sprites.front_default})
+            console.log(item)
+            characters.push({name: item.attribution.artist.username, url: item.image.original.url})
           })
         }
-        {pokemon.map(selectPokemon => {
+        {characters.map(selectCharacter => {
           return (
-            <img src={selectPokemon.url} alt={selectPokemon.name} key={selectPokemon.name}/>
+            <div className="card">
+              <img src={selectCharacter.url} alt={selectCharacter.name}/>
+              <p>{selectCharacter.name}</p>
+            </div>
           )
         })}
       </div>
     </>
-    // <img src={items.sprites.front_default} alt={items.species.name} />
   )
 }
