@@ -3,13 +3,59 @@
     src: url(assets/fonts/ckhans-fonts-gravitica-light-demo/ckhans-fonts-gravitica-light-demo.otf);
 }
 
+@font-face {
+  font-family: Cinzel;
+  src: url(assets/fonts/Cinzel/Cinzel-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Ditty;
+  src: url(assets/fonts/Ditty.ttf);
+}
+
 html, body {
   margin: 0;
+  background-image: url(assets/attack-on-titan-colossal-eren-image.jpg);
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 #root {
   width: 100%;
-  /* font-family: Gravitica; */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      h1 {
+        font-family: Ditty;
+        color: rgb(208, 238, 187);
+        font-size: 3rem;
+        margin-top: 10px;
+        letter-spacing: 3px;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 1rem;
+      }
+
+      .aotLogo {
+        position: absolute;
+        text-align: left;
+        width: 305px;
+        height: 120px;
+        top: -1%;
+        right: 22%;
+      }
+
+      .scoreboard {
+        p {
+          margin: 10px 30px 0;
+          font-size: 2rem;
+          font-family: Ditty;
+          color: bisque;
+          letter-spacing: 2px;
+        }
+      }
+    } 
 }
 
 body {

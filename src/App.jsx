@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import aotLogo from "../src/assets/Attack-on-Titan-Logo.png";
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -7,10 +8,25 @@ export default function App() {
   useEffect(() => {
     async function getCharacters() {
       const requests = [];
+      let randomNumber;
+      let usedNumbers = new Set();
 
       for(let i = 0; i < 10; i++) {
+        do{
+          randomNumber = Math.floor(Math.random() * 201) + 1;
+        }while(
+          usedNumbers.has(randomNumber) 
+          || randomNumber === 117 
+          || randomNumber === 116 
+          || randomNumber === 148
+          || randomNumber === 115
+          || randomNumber === 7
+        )
+
+        usedNumbers.add(randomNumber)
+
         requests.push(
-          fetch(`https://api.nekosia.cat/api/v1/images/cute`).then((res) => res.json())
+          fetch(`https://api.attackontitanapi.com/characters/${randomNumber}`).then((res) => res.json())
         );
       }
 
@@ -27,11 +43,20 @@ export default function App() {
       </div>
     )
   }
-  else if(dataIsLoaded) console.log(items)
+  else if(dataIsLoaded) {
+    console.log(items)
+  }
 
   return (
     <>
-      <h1 style={{color: 'white'}}>Memory Game</h1>
+        <div className="header">
+          <h1>Wings Of Memory</h1>
+          <img src={aotLogo} alt="aotLogo" className="aotLogo"/>
+          <div className="scoreboard">
+            <p>Best: </p>
+            <p>Score: </p>
+          </div>
+        </div>
       <ShowCharacters items={items} />
     </>
   )
@@ -44,14 +69,13 @@ function ShowCharacters({items}) {
       <div className="container">
         {
           items.map((item) => {
-            console.log(item)
-            characters.push({name: item.attribution.artist.username, url: item.image.original.url})
+            characters.push({name: item.name, url: item.img})
           })
         }
         {characters.map(selectCharacter => {
           return (
-            <div className="card">
-              <img src={selectCharacter.url} alt={selectCharacter.name}/>
+            <div className="card" key={selectCharacter.name}>
+              <img src={selectCharacter.url} alt={selectCharacter.name} referrerPolicy="no-referrer"/>
               <p>{selectCharacter.name}</p>
             </div>
           )
