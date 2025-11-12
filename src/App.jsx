@@ -6,6 +6,8 @@ export default function App() {
   const [best, setBest] = useState(0);
   const [score, setScore] = useState(0);
   const [dataIsLoaded, setDataIsLoaded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [lossModal, setLossModal] = useState(false);
 
   useEffect(() => {
     async function getCharacters() {
@@ -59,9 +61,38 @@ export default function App() {
           <p>Score: <span>{score}</span></p>
         </div>
       </div>
-      <ShowCharacters items={items} setItems={setItems} 
-      score={score} setScore={setScore}
-      best={best}setBest={setBest}/>
+      <ShowCharacters 
+      items={items} 
+      setItems={setItems} 
+      score={score} 
+      setScore={setScore}
+      best={best}
+      setBest={setBest} 
+      setShowModal={setShowModal}
+      setLossModal={setLossModal}
+      />
+
+      {showModal && (
+        <div id="winModal" className="modal" style={{display: 'flex'}}>
+          <div className="modal-content">
+              <img src={aotLogo} alt="Survey Corps Logo" className="modal-logo"/>
+              <h2>HUMANITY PREVAILS!</h2>
+              <p><i>For the fallen, we stand.</i></p>
+            <button id="closeModal" onClick={() => setShowModal(false)}>Play Again</button>
+          </div>
+        </div>
+      )}
+
+      {lossModal && (
+        <div id="lossModal" className="modal" style={{display: 'flex'}}>
+          <div className="modal-content">
+            <img src={aotLogo} alt="Survey cops logo" className="modal-logo"/>
+            <h2>Humanity Falls...</h2>
+            <p><i>But the fight is not over.</i></p>
+            <button id="closeModal" onClick={() => setLossModal(false)}>Retry</button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
@@ -70,7 +101,7 @@ function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
-function ShowCharacters({items, setItems, score, setScore, best, setBest}) {
+function ShowCharacters({items, setItems, score, setScore, best, setBest, setShowModal, setLossModal}) {
   const characters = []
 
   const shuffleCards = (e) => {
@@ -78,14 +109,22 @@ function ShowCharacters({items, setItems, score, setScore, best, setBest}) {
       e.currentTarget.classList.add('clicked');
       setItems(shuffle(items));
       setScore(score + 1);
+
+      if(document.querySelectorAll('.card.clicked').length === items.length) {
+        document.querySelectorAll('.card').forEach(card => {
+          card.classList.remove('clicked');
+        })
+        setShowModal(true);
+      }
     }
+
     else{
-      (score > best) ? setBest(score) : setBest(best);
-      setScore(score = 0);
+      if (score > best) setBest(score);
+      setScore(0);
       document.querySelectorAll('.card').forEach(card => {
         card.classList.remove('clicked');
       })
-      alert("GAME END");
+      setLossModal(true);
     }
   }
 

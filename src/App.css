@@ -76,30 +76,130 @@ body {
   text-align: center;
   min-height: 80vh;
   margin-top: 2rem;
+}
 
-  .card {
-    color: white;
-    width: 280px;
-    height: 340px;
-    background-color: #252525;
-    border: 1px solid white;
-    border-radius: 15px;
-    padding-top: 0.7rem;
-    font-family: Gravitica;
-    
-    p {
-      margin-top: 10px;
-      font-size: 1.5rem;
-      letter-spacing: 1px;
-    }
 
-    img {
-      width: 260px;
-      height: 260px;
-      border-radius: 15px;
-    }
+.card {
+  position: relative;
+  width: 260px;
+  height: 320px;
+  background: linear-gradient(145deg, #2a241b, #1a1814);
+  border: 2px solid #7b5e2e;
+  border-radius: 12px;
+  color: #f2e8d5;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6),
+              inset 0 0 10px rgba(255,255,255,0.05);
+  padding-top: 0.7rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-family: "Cinzel", serif;
+  cursor: pointer;
+
+  p {
+    margin-top: 12px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #e9d8a6;
+    text-shadow: 1px 1px 2px #000;
   }
-  .card:hover {
-    background-color: #3b3b3b;
+
+  img {
+    width: 230px;
+    height: 230px;
+    border-radius: 10px;
+    border: 1px solid #9a7b4f;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
   }
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  background: linear-gradient(145deg, #3a2f23, #1f1b17);
+  border-color: #c8a76b;
+  box-shadow: 0 0 25px rgba(255,215,160,0.3),
+              inset 0 0 8px rgba(255,255,255,0.08);
+
+  img {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+#closeModal {
+  font-family: Ditty;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+
+.modal-content {
+  background: #d9c6a3;
+  border: 2px solid #4a3b27;
+  border-radius: 10px;
+  padding: 2rem 3rem;
+  text-align: center;
+  color: #2b2b2b;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  position: relative;
+  font-family: 'Cinzel', serif;
+  transform: scale(0.8);
+  opacity: 0;
+  animation: popIn 0.4s ease forwards;
+
+  h2 {
+    font-size: 2rem;
+    color: #2e1f0f;
+    margin: 0.5rem 0;
+    text-shadow: 1px 1px 2px #00000050;
+  }
+
+  button {
+    background: #4a3b27;
+    color: #f3e9d2;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s ease;
+  }
+}
+
+.modal-logo {
+  width: 200px;
+}
+.modal-trophy {
+  width: 60px;
+  margin: 1rem 0;
+}
+
+.modal-content button:hover {
+  background: #6a5435;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
