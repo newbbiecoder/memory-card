@@ -3,6 +3,8 @@ import aotLogo from "../src/assets/Attack-on-Titan-Logo.png";
 
 export default function App() {
   const [items, setItems] = useState([]);
+  const [best, setBest] = useState(0);
+  const [score, setScore] = useState(0);
   const [dataIsLoaded, setDataIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -49,21 +51,44 @@ export default function App() {
 
   return (
     <>
-        <div className="header">
-          <h1>Wings Of Memory</h1>
-          <img src={aotLogo} alt="aotLogo" className="aotLogo"/>
-          <div className="scoreboard">
-            <p>Best: </p>
-            <p>Score: </p>
-          </div>
+      <div className="header">
+        <h1>Wings Of Memory</h1>
+        <img src={aotLogo} alt="aotLogo" className="aotLogo"/>
+        <div className="scoreboard">
+          <p>Best: <span>{best}</span></p>
+          <p>Score: <span>{score}</span></p>
         </div>
-      <ShowCharacters items={items} />
+      </div>
+      <ShowCharacters items={items} setItems={setItems} 
+      score={score} setScore={setScore}
+      best={best}setBest={setBest}/>
     </>
   )
 }
 
-function ShowCharacters({items}) {
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function ShowCharacters({items, setItems, score, setScore, best, setBest}) {
   const characters = []
+
+  const shuffleCards = (e) => {
+    if(!e.currentTarget.classList.contains('clicked')) {
+      e.currentTarget.classList.add('clicked');
+      setItems(shuffle(items));
+      setScore(score + 1);
+    }
+    else{
+      (score > best) ? setBest(score) : setBest(best);
+      setScore(score = 0);
+      document.querySelectorAll('.card').forEach(card => {
+        card.classList.remove('clicked');
+      })
+      alert("GAME END");
+    }
+  }
+
   return (
     <>  
       <div className="container">
@@ -74,7 +99,7 @@ function ShowCharacters({items}) {
         }
         {characters.map(selectCharacter => {
           return (
-            <div className="card" key={selectCharacter.name}>
+            <div className="card" key={selectCharacter.name} onClick={shuffleCards}>
               <img src={selectCharacter.url} alt={selectCharacter.name} referrerPolicy="no-referrer"/>
               <p>{selectCharacter.name}</p>
             </div>
