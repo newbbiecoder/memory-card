@@ -35,7 +35,7 @@ export default function App() {
       
       setTimeout(() => {
         setDataIsLoaded(true);
-      }, 900);
+      }, 1500);
     }
     getCharacters();
   },[]);
@@ -119,6 +119,8 @@ function ShowCharacters({items, setItems, score, setScore, best, setBest, setSho
         document.querySelectorAll('.card').forEach(card => {
           card.classList.remove('clicked');
         })
+        setBest(10);
+        setScore(0);
         setShowModal(true);
       }
     }

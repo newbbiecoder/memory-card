@@ -249,7 +249,7 @@ body {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #c8a76b, #ffe29a);
-  animation: load 3s ease-in-out infinite;
+  animation: load 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -264,8 +264,8 @@ body {
 
 @keyframes load {
   0% { width: 0%; }
-  50% { width: 100%; }
-  100% { width: 0%; }
+  50% { width: 50%; }
+  100% { width: 100%; }
 }
 
 @keyframes fadeIn {
