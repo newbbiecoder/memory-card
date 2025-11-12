@@ -203,3 +203,72 @@ body {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #151515 0%, #1e1e1e 100%);
+  color: #e9d8a6;
+  font-family: "Cinzel", serif;
+  text-align: center;
+  letter-spacing: 1px;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.loading-logo img {
+  width: 320px;
+  height: auto;
+  animation: pulse 2s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+}
+
+.loading-text {
+  font-size: 1.5rem;
+  color: #e9d8a6;
+  text-shadow: 1px 1px 3px #000;
+  margin-bottom: 1rem;
+  animation: fadeBlink 2.5s infinite;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 6px;
+  border: 1px solid #9a7b4f;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #2a241b;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.loading-progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #c8a76b, #ffe29a);
+  animation: load 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes fadeBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes load {
+  0% { width: 0%; }
+  50% { width: 100%; }
+  100% { width: 0%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

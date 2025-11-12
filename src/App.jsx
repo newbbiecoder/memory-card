@@ -19,12 +19,8 @@ export default function App() {
         do{
           randomNumber = Math.floor(Math.random() * 201) + 1;
         }while(
-          usedNumbers.has(randomNumber) 
-          || randomNumber === 117 
-          || randomNumber === 116 
-          || randomNumber === 148
-          || randomNumber === 115
-          || randomNumber === 7
+          usedNumbers.has(randomNumber) ||
+          [117, 116, 148, 115, 7].includes(randomNumber)
         )
 
         usedNumbers.add(randomNumber)
@@ -36,14 +32,23 @@ export default function App() {
 
       const results = await Promise.all(requests);
       setItems(results);
-      setDataIsLoaded(true);
+      
+      setTimeout(() => {
+        setDataIsLoaded(true);
+      }, 900);
     }
     getCharacters();
   },[]);
   if(!dataIsLoaded) {
     return (
-      <div>
-        <h2>Please wait for some time...</h2>
+      <div className="loading-screen">
+        <div className="loading-logo">
+          <img src={aotLogo} alt="Survey cops logo" />
+        </div>
+        <h2 className="loading-text">Mobilizing the scouts...</h2>
+        <div className="loading-bar">
+          <div className="loading-progress"></div>
+        </div>
       </div>
     )
   }
